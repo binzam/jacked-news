@@ -20,7 +20,9 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className={styles.card_container}
+      className={`${styles.card_container} ${
+        article.isBreaking ? styles.breaking : ''
+      }`}
     >
       <div className={styles.image_container}>
         <img
@@ -38,6 +40,9 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
         {article.isBreaking && (
           <div className={styles.breaking_badge}>BREAKING</div>
         )}
+        {article.isTrending && (
+          <div className={styles.trending_badge}>Trending</div>
+        )}
       </div>
 
       <div className={styles.card_content}>
@@ -45,7 +50,6 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
           <span>{new Date(article.date).toLocaleDateString()}</span>
           <span className={styles.meta_separator}>•</span>
           <FaClock className={styles.meta_icon} />
-          {/* <span>{readingTime} min read</span> */}
         </div>
 
         <h3 className={styles.card_title}>

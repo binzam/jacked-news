@@ -59,7 +59,17 @@ const VideoHub = () => {
 
       {selectedVideo && (
         <section>
-          <h2>Now Playing: {selectedVideoTitle}</h2>
+          <h2 className={styles.selected_video_title}>
+            <span>Now Playing</span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8 5V19L19 12L8 5Z" fill="currentColor" />
+            </svg>
+            {selectedVideoTitle}
+          </h2>
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 400 }}

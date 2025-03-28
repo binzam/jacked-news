@@ -7,4 +7,5 @@ export interface Article {
   excerpt?: string;
   content: string;
   isBreaking?: boolean;
+  isTrending?: boolean;
 }

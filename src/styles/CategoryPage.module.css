@@ -9,10 +9,21 @@
   margin-bottom: 2rem;
   color: #f43f5e;
   text-transform: capitalize;
+  position: relative;
+  display: inline-block;
 }
 
+.category_page h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100px;
+  height: 4px;
+  background-color: #333;
+}
 .articles_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1rem;
 }

@@ -5,6 +5,7 @@
   background-color: rgb(255, 255, 255);
   font-size: 1rem;
   position: relative;
+  background: linear-gradient(to top, #111827, #7f1d1d);
 }
 .main_content {
   width: 100%;

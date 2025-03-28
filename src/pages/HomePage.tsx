@@ -42,7 +42,7 @@ const HomePage = () => {
         <div className={styles.hero_content}>
           <h1>JACKED NEWS</h1>
           <p>
-            Your ultimate source for bodybuilding news, workouts, and nutrition
+            Your ultimate source for bodybuilding news, workouts, and nutrition.
           </p>
         </div>
       </motion.section>
@@ -103,25 +103,41 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-        <section className={styles.supplements_section}>
-          <h2 className={styles.section_title}>Popular Supplements</h2>
-          <div className={styles.supplements_grid}>
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate="show"
-              className={styles.article_grid}
-            >
-              {mockDB.articles.slice(0, 6).map((article, i) => (
-                <motion.div
-                  className={styles.article_box}
-                  key={article.id}
-                  variants={fadeIn('up', 'spring', i * 0.1, 0.5)}
-                >
-                  <ArticleCard article={article} />
-                </motion.div>
-              ))}
-            </motion.div>
+
+        <section className={styles.spotlight_section}>
+          <div className={styles.spotlight_container}>
+            <div className={styles.spotlight_content}>
+              <span className={styles.spotlight_badge}>
+                SUPPLEMENT SPOTLIGHT
+              </span>
+              <h2>{mockDB.supplementSpotlight.name}</h2>
+              <p className={styles.spotlight_excerpt}>
+                {mockDB.supplementSpotlight.excerpt}
+              </p>
+              <div className={styles.spotlight_stats}>
+                {mockDB.supplementSpotlight.stats.map((stat, index) => (
+                  <div key={index} className={styles.stat}>
+                    <span>{stat.value}</span>
+                    <p>{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+              <Link
+                to={`/article/${mockDB.supplementSpotlight.articleSlug}`}
+                className={styles.read_report}
+              >
+                Read Full Report
+              </Link>
+            </div>
+            <div className={styles.spotlight_image}>
+              <img
+                src={mockDB.supplementSpotlight.image}
+                alt={mockDB.supplementSpotlight.name}
+              />
+              {mockDB.supplementSpotlight.sponsored && (
+                <div className={styles.sponsored_tag}>SPONSORED</div>
+              )}
+            </div>
           </div>
         </section>
       </div>
