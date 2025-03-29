@@ -72,7 +72,7 @@ const VideoHub = () => {
           </h2>
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 400 }}
+            animate={{ opacity: 1, height: "auto"  }}
             transition={{ duration: 0.3 }}
             className={styles.selected_video_container}
           >
@@ -151,7 +151,13 @@ const VideoHub = () => {
                 <h3>{video.title}</h3>
                 <div className={styles.meta_data}>
                   <span>{video.views} views</span>
-                  <span>{new Date(video.date).toLocaleDateString()}</span>
+                  <span>
+                    {new Intl.DateTimeFormat('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    }).format(new Date(video.date))}
+                  </span>
                 </div>
               </div>
             </motion.div>

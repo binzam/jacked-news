@@ -36,7 +36,9 @@ body {
   min-height: 100vh;
   height: 100%;
 }
-
+body.menu-open {
+  overflow: hidden;
+}
 ul,
 ol {
   list-style: none;

@@ -12,6 +12,8 @@ import {
   FaTrophy,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { BiSolidInjection } from 'react-icons/bi';
+import { toKebabCase } from '../utils/urlConstructor';
 const HomePage = () => {
   const featuredCategories = [
     { name: 'Breaking News', icon: <FaFire />, path: '/category/breaking' },
@@ -23,6 +25,11 @@ const HomePage = () => {
     { name: 'Workouts', icon: <FaDumbbell />, path: '/category/workouts' },
     { name: 'Health', icon: <FaHeartbeat />, path: '/category/health' },
     { name: 'Nutrition', icon: <FaNutritionix />, path: '/category/nutrition' },
+    {
+      name: 'Steroids',
+      icon: <BiSolidInjection />,
+      path: '/category/steroids',
+    },
   ];
   const featuredAthlete = {
     name: 'Arnold Schwarzenegger',
@@ -42,7 +49,7 @@ const HomePage = () => {
         <div className={styles.hero_content}>
           <h1>JACKED NEWS</h1>
           <p>
-            Your ultimate source for bodybuilding news, workouts, and nutrition.
+            Your ultimate source for Fitness news, workouts, and nutrition.
           </p>
         </div>
       </motion.section>
@@ -54,7 +61,7 @@ const HomePage = () => {
             {featuredCategories.map((category) => (
               <motion.div
                 key={category.name}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 className={styles.category_card}
               >
                 <Link to={category.path}>
@@ -66,15 +73,16 @@ const HomePage = () => {
           </div>
         </section>
         <section className={styles.articles_section}>
-          <h2 className={styles.section_title}>Latest News</h2>
+          <h2 className={styles.section_title}>Latest Articles</h2>
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="show"
             className={styles.article_grid}
           >
-            {mockDB.articles.slice(0, 6).map((article, i) => (
+            {mockDB.articles.slice(0, 4).map((article, i) => (
               <motion.div
+                whileHover={{ scale: 1.01 }}
                 className={styles.article_box}
                 key={article.id}
                 variants={fadeIn('up', 'spring', i * 0.1, 0.5)}
@@ -87,7 +95,7 @@ const HomePage = () => {
         <section>
           <h2 className={styles.section_title}>Athlete of the Month</h2>
           <div className={styles.featured_athlete}>
-            <div className={styles.athlete_image_container}>
+            <div>
               <img
                 src={featuredAthlete.image}
                 alt={featuredAthlete.name}
@@ -123,7 +131,9 @@ const HomePage = () => {
                 ))}
               </div>
               <Link
-                to={`/article/${mockDB.supplementSpotlight.articleSlug}`}
+                to={`/article/${mockDB.supplementSpotlight.id}/${toKebabCase(
+                  mockDB.supplementSpotlight.name
+                )}`}
                 className={styles.read_report}
               >
                 Read Full Report

@@ -1,14 +1,17 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { mockDB } from '../data/data';
 import styles from '../styles/ArticlePage.module.css';
 import ArticleCard from '../components/ArticleCard';
 import { FaArrowLeft, FaBookmark, FaClock, FaShareAlt } from 'react-icons/fa';
+import { toKebabCase } from '../utils/urlConstructor';
 const ArticlePage = () => {
-  const { id } = useParams();
+  const { id, title } = useParams();
   const navigate = useNavigate();
-  const article = mockDB.articles.find((item) => item.id === id || Number(id));
-
+  const article = mockDB.articles.find((item) => item.id === Number(id));
+  if (article && title && toKebabCase(article.title) !== title) {
+    return <Navigate to={`/article/${id}/${toKebabCase(article.title)}`} replace />;
+  }
   if (!article) {
     return (
       <div className={styles.not_found}>
@@ -39,9 +42,6 @@ const ArticlePage = () => {
         </button>
 
         <div className={styles.article_meta}>
-          <span className={styles.article_date}>
-            <FaClock /> {new Date(article.date).toLocaleDateString()}
-          </span>
           <div className={styles.article_actions}>
             <button className={styles.action_button}>
               <FaShareAlt /> Share
@@ -55,13 +55,25 @@ const ArticlePage = () => {
 
       <article className={styles.article_content}>
         {article.isBreaking && (
-          <div className={styles.breaking_banner}>BREAKING NEWS</div>
+          <div className={styles.breaking_banner}>New</div>
         )}
 
         <h1 className={styles.article_title}>{article.title}</h1>
-
         <div className={styles.category_badge}>
           {article.category.toUpperCase()}
+        </div>
+        <div className={styles.article_info}>
+          <p>{article.author}</p>
+          <span className={styles.article_date}>
+            {new Intl.DateTimeFormat('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+            }).format(new Date(article.date))}
+            <FaClock />
+
+            <span>{article.readTime}</span>
+          </span>
         </div>
 
         <img

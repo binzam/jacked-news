@@ -15,7 +15,7 @@ function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/category/:type" element={<CategoryPage />} />
-        <Route path="/article/:id" element={<ArticlePage />} />
+        <Route path="/article/:id/:title?" element={<ArticlePage />} />
         <Route path="/videos" element={<VideoHub />} />
 
         <Route path="/newsletter" element={<NewsLetterConfirm />} />

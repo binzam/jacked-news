@@ -19,6 +19,7 @@ const CategoryPage = () => {
     workouts: 'Workouts',
     health: 'Health',
     nutrition: 'Nutrition',
+    steroids: 'PEDs',
   };
 
   return (

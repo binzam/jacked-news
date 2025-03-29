@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaClock, FaShareAlt, FaBookmark } from 'react-icons/fa';
+import { FaShareAlt, FaBookmark } from 'react-icons/fa';
 import { Article } from '../interfaces';
 import styles from '../styles/ArticleCard.module.css';
+import { toKebabCase } from '../utils/urlConstructor';
 interface ArticleCardProps {
   article: Article;
 }
@@ -11,10 +12,12 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
   const categoryColors: Record<Article['category'], string> = {
     competitions: styles.bg_red,
     nutrition: styles.bg_green,
-    steroids: styles.bg_yellow,
+    health: styles.bg_yellow,
     workouts: styles.bg_blue,
+    steroids: styles.bg_purple,
   };
   const categoryClass = categoryColors[article.category] || styles.bg_gray;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -38,7 +41,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
         </span>
 
         {article.isBreaking && (
-          <div className={styles.breaking_badge}>BREAKING</div>
+          <div className={styles.breaking_badge}>New!</div>
         )}
         {article.isTrending && (
           <div className={styles.trending_badge}>Trending</div>
@@ -47,19 +50,28 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
 
       <div className={styles.card_content}>
         <div className={styles.meta_info}>
-          <span>{new Date(article.date).toLocaleDateString()}</span>
+          <span>
+            {new Intl.DateTimeFormat('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+            }).format(new Date(article.date))}
+          </span>
           <span className={styles.meta_separator}>•</span>
-          <FaClock className={styles.meta_icon} />
+          <span>{article.readTime}</span>
         </div>
 
         <h3 className={styles.card_title}>
-          <Link to={`/article/${article.id}`} className={styles.title_link}>
+          <Link
+            to={`/article/${article.id}/${toKebabCase(article.title)}`}
+            className={styles.title_link}
+          >
             {article.title}
           </Link>
         </h3>
 
         <p className={styles.card_excerpt}>
-          {article.excerpt || article.content.substring(0, 150) + '...'}
+          {article.content.substring(0, 150) + '...'}
         </p>
 
         <div className={styles.card_footer}>
@@ -82,7 +94,7 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
-              to={`/article/${article.id}`}
+              to={`/article/${article.id}/${toKebabCase(article.title)}`}
               className={styles.read_more_link}
             >
               Read more

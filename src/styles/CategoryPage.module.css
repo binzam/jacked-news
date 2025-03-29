@@ -1,7 +1,7 @@
 .category_page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem 2rem 3rem;
 }
 
 .category_page h1 {
@@ -24,6 +24,17 @@
 }
 .articles_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1rem;
+}
+@media (max-width: 768px) {
+  .category_page {
+    padding: 1rem 1rem 3rem;
+  }
+  .category_page h1 {
+    font-size: 2rem;
+  }
+  .articles_grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
 }
